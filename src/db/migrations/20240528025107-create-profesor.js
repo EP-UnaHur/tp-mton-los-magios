@@ -12,11 +12,14 @@ module.exports = {
       nombre: {
         type: Sequelize.STRING
       },
-      grado: {
-        type: Sequelize.STRING
+      fechaNacimiento: {
+        type: Sequelize.DATE
       },
-      universidad: {
-        type: Sequelize.STRING
+      legajo: {
+        type: Sequelize.INTEGER
+      },
+      activo: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
