@@ -6,10 +6,14 @@ const route = Router()
 route.get('/carreras', carreraController.getAllCarreras)
 route.get('/carreras/:id', middlewareCarrera.existsById, carreraController.carreraById)
 
+//route.post('/carreras/:id/materia', ...) 201,404,400
+//route.get('/carreras/:id/materia', ...) 200,404
+
 route.post('/carreras', middlewareCarrera.validaSchema ,carreraController.crearCarrera)
 
-route.delete('/carreras/:id', middlewareCarrera.existsById, carreraController.borrarCarrera)
 
+//  creo que estos no hacen falta
+route.delete('/carreras/:id', middlewareCarrera.existsById, carreraController.borrarCarrera)
 route.put('/carreras/:id', 
     middlewareCarrera.existsById,
     middlewareCarrera.validaSchema,
