@@ -12,12 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Cursos.belongsTo(models.Materia,{
           as: 'materias',
-          foreignKey: 'curso_id'
+          foreignKey: 'materiaId'
       })
       Cursos.belongsToMany(models.Profesor,{
-        through: 'curso_profesor',
-        as: 'profesores',
-        foreignKey: 'curso_id'  
+        through: 'Curso_Profesor'
       })
     }
   }
@@ -29,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Cursos',
+    timestamps: false,
   });
   return Cursos;
 };

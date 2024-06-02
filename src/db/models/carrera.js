@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Carrera.hasMany(models.Materia, {
         as:'materias',
-        foreignKey:'id_carrera'
+        foreignKey:'carreraId'
       })
     }
   }
@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Carrera',
+    timestamps: false,
   });
   return Carrera;
 };
