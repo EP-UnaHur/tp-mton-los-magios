@@ -16,9 +16,4 @@ route.put('/cursos/:id',
 //route.post('/cursos/:id/profesores', ...) 201, 404, 400
 //route.get('/cursos/:id/profesores', ...) 202, 404
 
-//  creo que estos no hacen falta
-route.post('/cursos/', middlewareCurso.validaSchema, cursoController.crearCurso)
-
-
-
 module.exports = route

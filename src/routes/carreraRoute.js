@@ -13,13 +13,4 @@ route.get('/carreras/:id', middlewareCarrera.existsById(db.Carrera), carreraCont
 
 route.post('/carreras', middlewareCarrera.validaSchema(carreraSchema) ,carreraController.crearCarrera)
 
-
-//  creo que estos no hacen falta
-route.delete('/carreras/:id', middlewareCarrera.existsById, carreraController.borrarCarrera)
-route.put('/carreras/:id', 
-    middlewareCarrera.existsById,
-    middlewareCarrera.validaSchema,
-    carreraController.actualizarCarrera
-)
-
 module.exports = route
