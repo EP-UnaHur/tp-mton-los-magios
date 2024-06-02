@@ -1,7 +1,7 @@
 const existsById = (Model) => {
     return async (req, res, next) => {
         const id = req.params.id
-        const model = await Model.findById(id)
+        const model = await Model.findByPk(id)
         const modelName = Model.modelName || (Model.options.name && Model.options.name.singular);
         if(!model){
             return res.status(404).json({
