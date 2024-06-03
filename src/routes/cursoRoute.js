@@ -1,10 +1,11 @@
 const { Router } = require('express')
+const db = require('../db/models')
 const cursoController = require('../controllers/cursoController')
 const middlewareCurso = require('../middlewares/existsMiddleware')
 const route = Router()
 
 route.get('/cursos', cursoController.getAllCursos)
-route.get('/cursos/:id', middlewareCurso.existsById, cursoController.getCursoById)
+route.get('/cursos/:id', middlewareCurso.existsById(db.Curso), cursoController.getCursoById)
 route.delete('/cursos/:id', middlewareCurso.existsById, cursoController.borrarCurso) // falta res.500
 
 route.put('/cursos/:id', 
