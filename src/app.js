@@ -49,6 +49,21 @@ app.listen(3000, async ()=>{
             legajo: 1,
             activo: 1
         })
+
+        const profesorTest2 = db.Profesor.create({
+            nombre: 'profesorTest',
+            fechaNacimiento: new Date('2001-01-28'),
+            legajo: 1,
+            activo: 1
+        })
+
+        const profesorTest3 = db.Profesor.create({
+            nombre: 'profesorTest',
+            fechaNacimiento: new Date('2001-01-28'),
+            legajo: 1,
+            activo: 1
+        })
+
     } catch (error) {
         console.log(error);
     }

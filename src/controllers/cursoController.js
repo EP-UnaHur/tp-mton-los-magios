@@ -1,4 +1,6 @@
-const { Curso } = require('../db/models')
+const { where } = require('sequelize')
+const { Curso, Profesor, Materia } = require('../db/models')
+const hacerLista = require('../utils/hacerLista')
 const controller = {}
 
 const getAllCursos = async (req, res) => {
@@ -39,13 +41,54 @@ const actualizarCurso = async (req, res) => {
         res.status(200).json(cursoActualizado)
     } else 
         res.status(400).json({ error: `El curso con id ${id} no existe.` }) */
-    const idCursoAAcutilizar = req.params.id;
-    const CursoAActulizar = await Curso.findByPk(idCursoAAcutilizar) 
-    await CursoAActulizar.set(req.body).save();
-    res.status(200).json(CursoAActulizar)
+    const idCursoAActualizar = req.params.id;
+    const CursoAActualizar = await Curso.findByPk(idCursoAActualizar) 
+    await CursoAActualizar.set(req.body).save();
+    res.status(200).json(CursoAActualizar)
 
 }
 
 controller.actualizarCurso = actualizarCurso
+
+const asociarANProfesores = async (req, res) => {
+    let listaProfesores = hacerLista(req.body);
+    const cursoAAsociar = await Curso.findByPk(req.params.id);
+
+    listaProfesores = await Promise.all(listaProfesores.map(async profesor => {
+        const instanciaProfesor = await Profesor.findByPk(profesor.id);
+        const cursoYaTieneAlProfesor = await cursoAAsociar.hasProfesor(instanciaProfesor);
+        if(instanciaProfesor && !cursoYaTieneAlProfesor) {
+            return instanciaProfesor;
+        }
+        return null;
+    }));
+
+    listaProfesores = listaProfesores.filter(profesor => profesor !== null);
+
+    await cursoAAsociar.addProfesor(listaProfesores);
+
+    res.status(201).json(listaProfesores);
+}
+
+controller.asociarANProfesores = asociarANProfesores;
+
+const getProfesoresDelCurso = async (req, res) => {
+    const idDelCurso = req.params.id;
+    const curso = await Curso.findByPk(idDelCurso, {
+        include:[{
+            model: Materia,
+            as: 'materia',
+        },{
+            model: Profesor,
+            as: 'profesores',
+            through: {
+                attributes: []
+            }
+        }]
+    });
+    res.status(200).json({curso});
+}
+
+controller.getProfesoresDelCurso = getProfesoresDelCurso;
 
 module.exports = controller

@@ -1,8 +1,9 @@
-const Joi = required('Joi')
+const Joi = require('joi')
 const validateDate = require('../utils/dateValidator')
-const validateLegajo = require('../utils/validateLegajo')
+const validateLegajo = require('../utils/validateLegajo');
+const schemas = {};
 
-const profesorSchema = joy.object().keys({
+const profesorSchema = Joi.object().keys({
     nombre: Joi.string().required().min(1).max(20).messages({
         'string.empty': 'El nombre no puede estar vacío',
         'string.min': `El nombre debe tener al menos {#limit} caracter`,
@@ -26,11 +27,15 @@ const profesorSchema = joy.object().keys({
 
 })
 
-const profesorSoloIdSchema = joy.object.keys({
+schemas.profesorSchema = profesorSchema;
+
+const profesorSoloIdSchema = Joi.object().keys({
     id: Joi.number().required().messages({
         'number.base': 'El campo id debe ser un numero entero',
         'any.required': 'El id es obligatorio'
     })
 })
 
-module.exports = profesorSchema
+schemas.profesorSoloIdSchema = profesorSoloIdSchema;
+
+module.exports = schemas;

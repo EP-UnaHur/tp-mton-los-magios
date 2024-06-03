@@ -1,3 +1,5 @@
+const hacerLista = require("../utils/hacerLista");
+
 const existsById = (Model) => {
     return async (req, res, next) => {
         const id = req.params.id
@@ -14,17 +16,21 @@ const existsById = (Model) => {
 
 const validaSchema = (schema) => {
     return  async (req, res, next) => {
-        const result = schema.validate(req.body, {abortEarly: false})
-        if (result.error) {
-            return res.status(400).json(
-                {
-                    errores : result.error.details.map( error=> ( {
-                        error: error.message
-                    })
-                )}  
-            )
+        const data = hacerLista(req.body);
+        for(let i = 0; i < data.length; i++) {
+            const result = schema.validate(data[i], {abortEarly: false})
+            if (result.error) {
+                return res.status(400).json(
+                    {
+                        indiceDelObjeto: i,
+                        errores : result.error.details.map( error=> ( {
+                            error: error.message
+                        })
+                    )}  
+                )
+            }
         }
-        next()
+    next()
     }
 }
 
