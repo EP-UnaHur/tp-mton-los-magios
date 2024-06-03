@@ -1,4 +1,4 @@
-const { Profesor } = require('../db/models')
+const { Profesor, Curso, Materia } = require('../db/models')
 const controller = {}
 
 const getAllProfesores = async (req, res) => {
@@ -9,7 +9,7 @@ const getAllProfesores = async (req, res) => {
 controller.getAllProfesores = getAllProfesores
 
 const getProfesorById = async (req, res) => {
-    const profesor = await Profesor.findByPk(id)
+    const profesor = await Profesor.findByPk(req.params.id)
     res.status(200).json(profesor)
 }
 
@@ -42,5 +42,24 @@ const actualizarProfesor = async(req, res) => {
 }
 
 controller.actualizarProfesor = actualizarProfesor
+
+const getAllCursosProfesorById = async (req, res) => {
+    const cursosDeProfesor = await Profesor.findByPk(req.params.id, {
+        include: [{
+            model: Curso,
+            as: 'cursos',
+            through: {
+                attributes: []
+            },
+            include: {
+                model: Materia,
+                as: 'materia',
+            }
+        }]
+    })
+    res.status(200).json(cursosDeProfesor)
+}
+
+controller.getAllCursosProfesorById = getAllCursosProfesorById
 
 module.exports = controller

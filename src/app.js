@@ -43,6 +43,22 @@ app.listen(3000, async ()=>{
             materiaId: 1
         });
 
+        const cursoTest2 = db.Curso.create({
+            comision: 'B',
+            turno: 'tarde',
+            fechaInicio: new Date('2024-06-02'),
+            fechaFin: new Date('2024-06-10'),
+            materiaId: 1
+        });
+
+        const cursoTest3 = db.Curso.create({
+            comision: 'C',
+            turno: 'tarde',
+            fechaInicio: new Date('2024-06-02'),
+            fechaFin: new Date('2024-06-10'),
+            materiaId: 1
+        });
+
         const profesorTest = db.Profesor.create({
             nombre: 'profesorTest',
             fechaNacimiento: new Date('2001-01-28'),
