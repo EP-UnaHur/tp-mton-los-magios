@@ -1,4 +1,4 @@
-const { Materia } = require('../db/models')
+const { Materia, Curso } = require('../db/models')
 const controller = {}
 
 const crearMateria = async(req, res) => {
@@ -43,5 +43,28 @@ const actualizarMateria = async(req, res) => {
 }
 
 controller.actualizarMateria = actualizarMateria
+
+const crearCursoParaLaMateria = async (req, res) => {
+    const idDeMateria = req.params.id;
+    const materia = await Materia.findByPk(idDeMateria);
+    const nuevoCurso = await Curso.create(req.body);
+    await materia.addCurso(nuevoCurso);
+    res.status(201).json(nuevoCurso);
+}
+
+controller.crearCursoParaLaMateria = crearCursoParaLaMateria;
+
+const getTodosLosCursosDeLaMateria = async (req, res) => {
+    const id = req.params.id;
+    const materia = await Materia.findByPk(id, {
+        include: {
+            model: Curso,
+            as: 'cursos',
+        }
+    });
+    res.status(201).json(materia)
+}
+
+controller.getTodosLosCursosDeLaMateria = getTodosLosCursosDeLaMateria
 
 module.exports = controller
