@@ -35,7 +35,7 @@ app.listen(3000, async ()=>{
             carreraId: 1
         });
 
-        const cursoTest = db.Cursos.create({
+        const cursoTest = db.Curso.create({
             comision: 'A',
             turno: 'tarde',
             fechaInicio: new Date('2024-06-02'),

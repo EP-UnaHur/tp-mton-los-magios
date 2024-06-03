@@ -1,7 +1,7 @@
 const Joi = require('joi')
-const validateDate = require('../ultis/dateValidator')
+const validateDate = require('../utils/dateValidator')
 
-const cursosSchema = Joi.object().keys({
+const cursoSchema = Joi.object().keys({
     comision: Joi.string().required().min(3).max(50).messages({
         'string.min': `El campo comision debe tener al menos {#limit} caracteres`,
         'string.max': `El campo comision debe tener como máximo {#limit} caracteres`,
@@ -26,4 +26,4 @@ const cursosSchema = Joi.object().keys({
     })
 })
 
-module.exports = cursosSchema
+module.exports = cursoSchema

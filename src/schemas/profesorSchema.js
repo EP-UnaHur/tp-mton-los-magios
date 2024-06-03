@@ -1,5 +1,5 @@
 const Joi = required('Joi')
-const validateDate = require('../ultis/dateValidator')
+const validateDate = require('../utils/dateValidator')
 
 const profesorSchema = joy.object().keys({
     nombre: Joi.string().required().min(1).max(20).messages({

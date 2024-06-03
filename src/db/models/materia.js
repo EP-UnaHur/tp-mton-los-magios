@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Materia.belongsTo(models.Carrera,{
-        as: 'carreras',
+        as: 'carrera',
         foreignKey: 'carreraId'
       })
       
-      Materia.hasMany(models.Cursos,{
+      Materia.hasMany(models.Curso,{
         as: 'cursos',
         foreignKey: 'materiaId'
       })
@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Materia',
+    tableName: 'Materias',
     timestamps: false,
   });
   return Materia;
