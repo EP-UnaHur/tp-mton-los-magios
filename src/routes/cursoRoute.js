@@ -2,6 +2,7 @@ const { Router } = require('express')
 const db = require('../db/models')
 const cursoController = require('../controllers/cursoController')
 const middlewareCurso = require('../middlewares/existsMiddleware')
+const cursoSchema = require('../schemas/cursoSchema')
 const route = Router()
 
 route.get('/cursos', cursoController.getAllCursos)
@@ -9,10 +10,10 @@ route.get('/cursos/:id', middlewareCurso.existsById(db.Curso), cursoController.g
 route.delete('/cursos/:id', middlewareCurso.existsById, cursoController.borrarCurso) // falta res.500
 
 route.put('/cursos/:id', 
-    middlewareCurso.existsById, 
-    middlewareCurso.validaSchema, 
+    middlewareCurso.existsById(db.Curso), 
+    middlewareCurso.validaSchema(cursoSchema), 
     cursoController.actualizarCurso
-)
+)//el valida schema pide todos los campos hacer otro que no los requira quizas ?
 
 //route.post('/cursos/:id/profesores', ...) 201, 404, 400
 //route.get('/cursos/:id/profesores', ...) 202, 404
