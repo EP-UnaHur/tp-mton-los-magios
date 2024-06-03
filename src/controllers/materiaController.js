@@ -16,6 +16,7 @@ const getAllMaterias = async(req, res) => {
 controller.getAllMaterias = getAllMaterias
 
 const getMateriaById = async(req, res) => {
+    const id = req.params.id
     const materia = await Materia.findByPk(id)
     res.status(200).json(materia)
 }

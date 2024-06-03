@@ -1,4 +1,4 @@
-const { Carrera } = require('../db/models')
+const { Carrera, Materia } = require('../db/models')
 const controller = {}
 
 const getAllCarreras = async (req, res) => {
@@ -47,5 +47,29 @@ const actualizarCarrera = async(req, res) => {
 }
 
 controller.actualizarCarrera = actualizarCarrera
+
+const crearMateriaEnCarrera = async (req, res) => {
+    const idDeCarrera = req.params.id;
+    const carrera = await Carrera.findByPk(idDeCarrera);
+    const nuevaMateria = await Materia.create(req.body);
+    await carrera.addMateria(nuevaMateria);
+    res.status(201).json(nuevaMateria);
+
+}
+
+controller.crearMateriaEnCarrera = crearMateriaEnCarrera;
+
+const getTodasLasMateriasDeCarrera = async (req, res) => {
+    const id = req.params.id;
+    const carrera = await Carrera.findByPk(id, {
+        include: {
+            model: Materia,
+            as: 'materias',
+        }
+    });
+    res.status(201).json(carrera)
+}
+
+controller.getTodasLasMateriasDeCarrera = getTodasLasMateriasDeCarrera;
 
 module.exports = controller

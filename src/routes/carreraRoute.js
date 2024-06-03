@@ -3,13 +3,18 @@ const db = require('../db/models')
 const carreraController = require('../controllers/carreraController')
 const middlewareCarrera = require('../middlewares/existsMiddleware')
 const carreraSchema = require('../schemas/carreraSchema')
+const materiaSchema = require('../schemas/materiaSchema')
 const route = Router()
 
 route.get('/carreras', carreraController.getAllCarreras)
 route.get('/carreras/:id', middlewareCarrera.existsById(db.Carrera), carreraController.carreraById)
 
-//route.post('/carreras/:id/materia', ...) 201,404,400
-//route.get('/carreras/:id/materia', ...) 200,404
+route.post('/carreras/:id/materia', 
+    middlewareCarrera.existsById(db.Carrera), 
+    middlewareCarrera.validaSchema(materiaSchema), 
+    carreraController.crearMateriaEnCarrera )
+
+route.get('/carreras/:id/materia', middlewareCarrera.existsById(db.Carrera), carreraController.getTodasLasMateriasDeCarrera)
 
 route.post('/carreras', middlewareCarrera.validaSchema(carreraSchema) ,carreraController.crearCarrera)
 
