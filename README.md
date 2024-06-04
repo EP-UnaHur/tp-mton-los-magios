@@ -27,27 +27,19 @@ Basandose en el siguiente diagrama de entidad-relacion (DER) deberán generar lo
 - Un **Curso** puede ser dictado por muchos profesores.
 - Un **Profesor** puede dictar muchos cursos.
 
-### Base de datos
-El motor de base de datos a utilizar podra ser elegido por los alumnos. La recomendacion es utilizar sqlite para pruebas simple y luego probar con otro motor de base de datos tipo MySql o Postgres.
+### Instalacion de dependencias
+Se deberán instalar las dependencias necesarias para el correcto funcionamiento de la aplicación, usando el comando
 
-### Intalacion de dependencias
-Debera contar con las dependencias de produccion y desarrollo necesarias de un proyecto node. Por ejemplo:
+```npm i```
+o
+```npm install```
 
-```npm i sequelize sqlite3```
+### Correr aplicación
+Para correr la aplicación, se debe utilizar el comando
+```npm run dev```
 
-```npm i -D sequelize-cli``` 
-
-### Tips - Comandos utililes
-- Inicializar un proyecto sequelize 
-
-```npx sequelize-cli init```
-- Generar un modelos simple
-
-
-```npx sequelize-cli model:generate --name Carrera --attributes "nombre:string,grado:string,universidad:string"```
 
 ## API
-Implementar la API utilizando el framework express en el entorde de ejecucion de un poryecto NodeJs. Organizar el código en rutas, controlers y middleware utilizando la separación por recurso. A continuación se detallan los endpoinds que deberán estar disponbiles en la API.
 
 |Verbo|Recurso|Status code|Descripción|
 |-----|-------|-----------|-----------|
