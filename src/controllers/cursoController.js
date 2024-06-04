@@ -25,26 +25,18 @@ const crearCurso = async(req, res) => {
 controller.crearCurso = crearCurso
 
 const borrarCurso = async(req, res) => {
+    const id = req.params.id;
     const curso = await Curso.destroy({where: {id}})
-    if(curso)
-        res.status(200).json(`El curso con id ${id} se borro con exito.`)
-    else
-        res.status(404).json(`El curso con id ${id} no existe.`)
+    res.status(200).json(`El curso con id ${id} se borro con exito.`)
 }
 
 controller.borrarCurso = borrarCurso
 
 const actualizarCurso = async (req, res) => {
-/*     const curso = await Curso.update(req.body, {where: {id}})
-    if(curso){
-        const cursoActualizado = await Curso.findByPk(id)
-        res.status(200).json(cursoActualizado)
-    } else 
-        res.status(400).json({ error: `El curso con id ${id} no existe.` }) */
     const idCursoAActualizar = req.params.id;
-    const CursoAActualizar = await Curso.findByPk(idCursoAActualizar) 
-    await CursoAActualizar.set(req.body).save();
-    res.status(200).json(CursoAActualizar)
+    const cursoAActualizar = await Curso.findByPk(idCursoAActualizar) 
+    await cursoAActualizar.set(req.body).save();
+    res.status(200).json(cursoAActualizar)
 
 }
 

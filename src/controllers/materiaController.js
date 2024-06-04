@@ -24,11 +24,9 @@ const getMateriaById = async(req, res) => {
 controller.getMateriaById = getMateriaById
 
 const borrarMateria = async(req, res) => {
+    const id = req.params.id;
     const row = await Materia.destroy({ where: {id} })
-    if(row)
-        res.status(200).json(`La materia con id ${id} se borro con exito.`)
-    else
-        res.status(404).json(`La materia con id ${id} no existe.`)
+    res.status(200).json(`La materia con id ${id} se borro con exito.`)
 }
 
 controller.borrarMateria = borrarMateria

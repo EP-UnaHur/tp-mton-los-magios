@@ -35,6 +35,13 @@ app.listen(3000, async ()=>{
             carreraId: 1
         });
 
+        const materiaTest2 = db.Materia.create({
+            nombre: 'materiaTest123',
+            cuatrimestral: 1,
+            anio: 1,
+            carreraId: 1
+        });
+
         const cursoTest = db.Curso.create({
             comision: 'A',
             turno: 'tarde',

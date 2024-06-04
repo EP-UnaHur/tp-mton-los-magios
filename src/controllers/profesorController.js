@@ -23,22 +23,18 @@ const crearProfesor = async(req, res) => {
 controller.crearProfesor = crearProfesor
 
 const borrarProfesor = async(req, res) => {
+    const id = req.params.id
     const profesor = await Profesor.destroy({where: {id}})
-    if(profesor)
-        res.status(200).json(`El profesor con id ${id} se borro con exito.`)
-    else
-        res.status(404).json(`El profesor con id ${id} no existe.`)
+    res.status(200).json(`El profesor con id ${id} se borro con exito.`)
 }
 
 controller.borrarProfesor = borrarProfesor
 
 const actualizarProfesor = async(req, res) => {
-    const profesor = await Profesor.update(req.body, { where: {id}})
-    if(profesor){
-        const profesorActualizado = await Profesor.findByPk(id)
-        res.status(200).json(profesorActualizado)
-    } else
-        res.status(400).json({ error: `El profesor con id ${id} no existe.` })
+    const idProfesorAActualizar = req.params.id
+    const profesorAActualizar = await Profesor.findByPk(idProfesorAActualizar);
+    await profesorAActualizar.set(req.body).save();
+    res.status(200).json(profesorAActualizar)
 }
 
 controller.actualizarProfesor = actualizarProfesor

@@ -1,6 +1,5 @@
 const Joi = require('joi')
 const validateDate = require('../utils/dateValidator')
-const validateLegajo = require('../utils/validateLegajo');
 const schemas = {};
 
 const profesorSchema = Joi.object().keys({
@@ -17,7 +16,7 @@ const profesorSchema = Joi.object().keys({
         'any.required': 'La fecha de nacimiento es obligatoria'
     }),
 
-    legajo: Joi.number().optional().custom(validateLegajo).messages({
+    legajo: Joi.number().optional().messages({
         'number.base': 'El campo legajo debe ser un número entero',
     }),
 

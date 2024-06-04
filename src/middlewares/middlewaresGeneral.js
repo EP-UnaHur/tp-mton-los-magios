@@ -1,3 +1,4 @@
+const {Carrera, Materia, Curso, Profesor} = require('../db/models');
 const hacerLista = require("../utils/hacerLista");
 
 const existsById = (Model) => {
@@ -34,4 +35,16 @@ const validaSchema = (schema) => {
     }
 }
 
-module.exports = {existsById, validaSchema}
+const tieneRelacion = (Model, ModeloRelacionado) => {
+    return async (req, res, next) => {
+        const id = req.params.id;
+        const registroRelacionado = await ModeloRelacionado.findOne({ where: { [Model.name.toLowerCase() + 'Id']: id } });
+        if (registroRelacionado) {
+            return res.status(500).json({ error: `No se puede borrar el recurso con id ${id} porque está relacionado con ${ModeloRelacionado.name}` });
+        }
+
+    next();
+    };
+}
+
+module.exports = {existsById, validaSchema, tieneRelacion}
